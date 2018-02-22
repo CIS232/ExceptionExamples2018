@@ -4,14 +4,12 @@ import java.io.*;    // For File class and FileNotFoundException
 import java.util.*;  // For Scanner and InputMismatchException
 
 /**
- *  This program demonstrates how exception handlers can
- *  be used to recover from errors.
+ * This program demonstrates how exception handlers can
+ * be used to recover from errors.
  */
 
-public class SalesReport2
-{
-	public static void main(String[] args)
-	{
+public class SalesReport2 {
+	public static void main(String[] args) {
 		String filename = "SalesData2.txt"; // File name
 		int months = 0;                    // Month counter
 		double oneMonth;                   // One month's sales
@@ -24,8 +22,7 @@ public class SalesReport2
 
 		// If the openFile method returned null, then
 		// the file was not found. Get a new file name.
-		while (inputFile == null)
-		{
+		while (inputFile == null) {
 			Scanner keyboard = new Scanner(System.in);
 			System.out.print("ERROR: " + filename +
 					" does not exist.\n" +
@@ -35,10 +32,8 @@ public class SalesReport2
 		}
 
 		// Process the contents of the file.
-		while (inputFile.hasNext())
-		{
-			try
-			{
+		while (inputFile.hasNext()) {
+			try {
 				// Get a month's sales amount.
 				oneMonth = inputFile.nextDouble();
 
@@ -47,9 +42,7 @@ public class SalesReport2
 
 				// Increment the month counter.
 				months++;
-			}
-			catch(InputMismatchException e)
-			{
+			} catch (InputMismatchException e) {
 				// Display an error message.
 				// Nonnumeric data was encountered.
 				System.out.println("Nonnumeric data " +
@@ -61,7 +54,15 @@ public class SalesReport2
 
 				// Skip past the invalid data.
 				inputFile.nextLine();
+			} catch (NoSuchElementException e) {
+				System.out.println("No such element!");
+				inputFile.nextLine();
+			} catch (Exception e) {
+				System.out.println("Some error happened? " + e.getMessage());
+				inputFile.nextLine();
 			}
+
+
 		}
 
 		// Close the file.
@@ -77,23 +78,19 @@ public class SalesReport2
 	}
 
 	/**
-	 *  The openFile method opens the file with the name specified
-	 *  by the argument. A reference to a Scanner object is
-	 *  returned.
+	 * The openFile method opens the file with the name specified
+	 * by the argument. A reference to a Scanner object is
+	 * returned.
 	 */
 
-	public static Scanner openFile(String filename)
-	{
+	public static Scanner openFile(String filename) {
 		Scanner scan;
 
 		// Attempt to open the file.
-		try
-		{
+		try {
 			File file = new File(filename);
 			scan = new Scanner(file);
-		}
-		catch(FileNotFoundException e)
-		{
+		} catch (FileNotFoundException e) {
 			scan = null;
 		}
 
