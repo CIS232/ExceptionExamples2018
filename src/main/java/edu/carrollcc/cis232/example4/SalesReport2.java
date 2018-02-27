@@ -31,6 +31,9 @@ public class SalesReport2 {
 			inputFile = openFile(filename);
 		}
 
+		displayFile(filename);
+
+
 		// Process the contents of the file.
 		while (inputFile.hasNext()) {
 			try {
@@ -96,4 +99,23 @@ public class SalesReport2 {
 
 		return scan;
 	}
+
+	// This method will not compile!
+	public static void displayFile(String name) {
+		try {
+			// Open the file.
+			File file = new File(name);
+			Scanner inputFile = new Scanner(file);
+			// Read and display the file's contents.
+			System.out.println("File contents:");
+			while (inputFile.hasNext()) {
+				System.out.println(inputFile.nextLine());
+			}
+			// Close the file.
+			inputFile.close();
+		} catch(FileNotFoundException e){
+			System.out.println(e.getMessage());
+		}
+	}
+
 }
